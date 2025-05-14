@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Req,
@@ -15,6 +16,7 @@ import { CreateRideDto } from './dto/create-ride.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { GetRideDto } from './dto/get-ride.dto';
 import { plainToClass } from 'class-transformer';
+import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 
 @UseGuards(AuthGuard)
 @Controller('ride')
@@ -46,5 +48,8 @@ excludeExtraneousValues: true
   async reviewPassengerByRider() {}
 
   @Delete('/:id')
-  async deleteRide() {}
+  async deleteRide(@Param("id") id: string, @Req() req) {
+ 
+    return await this.rideService.delete(id, req.user)
+  }
 }
