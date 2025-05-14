@@ -8,12 +8,15 @@ import {
   Res,
   UnauthorizedException,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UserService } from './user.service';
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserResponseDto } from './dto/me.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
@@ -60,7 +63,7 @@ export class UserController {
     };
   }
 
-  @UseGuards(AuthGuard)
+
   @Get('/refresh-tokens')
   async refreshOldToken(
     @Req() req: Request,
@@ -100,5 +103,13 @@ export class UserController {
     return {
       accessToken,
     };
+  }
+
+
+  @UseGuards(AuthGuard)
+  @UseInterceptors(new Serialize(UserResponseDto))
+  @Get('/me')
+  getUserProfile(@Req() req) {
+    return req.user;
   }
 }
