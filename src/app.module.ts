@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { dbConfig } from './config/db.config';
 import { UserModule } from './user/user.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UserModule } from './user/user.module';
     JwtModule,
     TypeOrmModule.forRootAsync(dbConfig),
     UserModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

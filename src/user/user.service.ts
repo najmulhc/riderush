@@ -13,6 +13,7 @@ import { ColumnTypeUndefinedError, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ProfileService } from 'src/profile/profile.service';
 
 @Injectable()
 export class UserService {
@@ -20,6 +21,7 @@ export class UserService {
     @InjectRepository(User) private repo: Repository<User>,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private profileService : ProfileService
   ) {}
 
   // constructor is done, now the route handlers  ->
@@ -38,6 +40,11 @@ export class UserService {
       hashedPassword,
     });
     const savedUser = await this.repo.save(createdUser);
+    const savedUser_id = savedUser.id;
+    const savedUserProfile = await this.profileService.create({
+      user_id: savedUser_id
+    });
+    console.log(savedUserProfile)
     return await this.generateTokens({
       email: savedUser.email,
       user_id: savedUser.id,
