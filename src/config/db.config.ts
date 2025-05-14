@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { Profile } from 'src/profile/entities/profile.entity';
+import { Ride } from 'src/ride/entities/ride.entity';
 import { User } from 'src/user/entities/user.entity';
 
 export const dbConfig: TypeOrmModuleAsyncOptions = {
@@ -13,7 +14,7 @@ export const dbConfig: TypeOrmModuleAsyncOptions = {
     username: config.get<string>('DB_USERNAME'),
     password: config.get<string>('DB_PASSWORD'),
     synchronize: true,
-    entities: [User, Profile],
+    entities: [User, Profile, Ride],
     ssl: {
       rejectUnauthorized: false,
     },

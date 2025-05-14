@@ -8,10 +8,13 @@ import { Profile } from './entities/profile.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { updateProfileDto } from './dto/update-profile.dto';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class ProfileService {
-  constructor(@InjectRepository(Profile) private repo: Repository<Profile>) {}
+  constructor(
+    @InjectRepository(Profile) private repo: Repository<Profile>,
+  ) {}
 
   async create(payload: CreateProfileDto) {
     const { user_id } = payload;
@@ -38,7 +41,6 @@ export class ProfileService {
   }
 
   async getProfileByUserId(userId: string) {
-    console.log(userId);
     const profile = await this.repo.findOne({
       where: {
         user: {
@@ -67,6 +69,6 @@ export class ProfileService {
   // only can be used by the account file, you can not delete the profile by your own
   async delete(id: string) {
     const profile = await this.getProfileByUserId(id);
-    return this.repo.delete(profile);
+    return 'string';
   }
 }
