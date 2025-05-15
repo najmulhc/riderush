@@ -1,18 +1,22 @@
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import { Ride } from 'src/ride/entities/ride.entity';
+import { GetRideDto } from 'src/ride/dto/get-ride.dto';
 
 export class GetProfileDto {
-  @Expose()
-  rides: number;
-
-
- 
-  ridesAsPassenger: any[];
+  @Exclude()
+  @Type(() => GetRideDto)
+  ridesAsPassenger: GetRideDto[];
 
   @Expose()
-  get ridesAsPassengerCount() {
-    return this.ridesAsPassenger?.length ?? 0;
-  }
+  @Transform(({ obj }) => obj.ridesAsPassenger.length ?? 0)
+  ridesAsPassengerCount: number;
+
+  @Exclude()
+  @Type(() => GetRideDto)
+  ridesAsRider: GetRideDto;
+
+  @Expose()
+  @Transform(({ obj }) => obj.ridesAsRider.length ?? 0)
+  ridesAsRiderCount: number;
 
   @Expose()
   riderReviewCount: number;

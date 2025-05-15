@@ -124,14 +124,12 @@ export class RideService {
 
     const passenger = await this.profileRepo.findOne({
       where: {
-        id: savedRide.passenger.id
+        id: savedRide.passenger.id,
       },
-      relations: [
-        'ride'
-      ]
-    })
+      relations: ['ride'],
+    });
 
-    passenger.ridesAsPassenger.push(ride); 
+    passenger.ridesAsPassenger.push(ride);
     const savedPassenger = await this.profileRepo.save(passenger);
 
     rider.balence += cost;
@@ -139,7 +137,9 @@ export class RideService {
     const savedRider = await this.profileRepo.save(rider);
 
     return {
-      savedRider, savedPassenger, savedRide
+      savedRider,
+      savedPassenger,
+      savedRide,
     };
   }
 }

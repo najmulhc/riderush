@@ -28,15 +28,13 @@ export class ProfileController {
   ) {}
 
 
+  @UseInterceptors(new Serialize(GetProfileDto))
   @Get('/:id')
   async getProfile(@Param('id') id: string) {
     const response = await this.profileService.getProfileByUserId(id)
 
-    const classInfo =  plainToInstance(GetProfileDto, response, {
-      
-    })
 
-    return instanceToPlain(classInfo)
+    return response
   }
 
   @UseGuards(AuthGuard)

@@ -12,9 +12,7 @@ import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class ProfileService {
-  constructor(
-    @InjectRepository(Profile) private repo: Repository<Profile>,
-  ) {}
+  constructor(@InjectRepository(Profile) private repo: Repository<Profile>) {}
 
   async create(payload: CreateProfileDto) {
     const { user_id } = payload;
@@ -47,7 +45,7 @@ export class ProfileService {
           id: userId,
         },
       },
-      relations: ['user' , 'ridesAsRider', 'ridesAsPassenger'],
+      relations: ['user', 'ridesAsRider', 'ridesAsPassenger'],
     });
 
     if (!profile) {

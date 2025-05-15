@@ -7,16 +7,13 @@ import {
   Patch,
   Post,
   Req,
-  UseGuards,
-  UseInterceptors,
+  UseGuards
 } from '@nestjs/common';
-import { RideService } from './ride.service';
+import { plainToClass } from 'class-transformer';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CreateRideDto } from './dto/create-ride.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { GetRideDto } from './dto/get-ride.dto';
-import { plainToClass } from 'class-transformer';
-import { UUID } from 'typeorm/driver/mongodb/bson.typings';
+import { RideService } from './ride.service';
 
 @UseGuards(AuthGuard)
 @Controller('ride')
@@ -59,7 +56,7 @@ export class RideController {
   @Patch('/:id/complete')
   async completeRide(@Req() req, @Param('id') id: string) {
     const result = await this.rideService.completeRide(req.user, id);
-    return result
+    return result;
   }
 
   @Post('/:id/review/rider')

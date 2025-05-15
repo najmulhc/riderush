@@ -1,8 +1,7 @@
 import { Expose } from 'class-transformer';
 
 export class RiderProfileDto {
-  @Expose()
-  rides: number;
+ 
 
   @Expose()
   riderReviewCount: number;
