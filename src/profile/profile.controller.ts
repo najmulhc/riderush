@@ -17,6 +17,7 @@ import { GetProfileDto } from './dto/get-profile.dto';
 import { updateProfileDto } from './dto/update-profile.dto';
 import { ProfileService } from './profile.service';
 import { UserService } from 'src/user/user.service';
+import { instanceToPlain, plainToClass, plainToInstance } from 'class-transformer';
 
 @Controller('profile')
 export class ProfileController {
@@ -26,10 +27,16 @@ export class ProfileController {
     private userService: UserService,
   ) {}
 
-  @UseInterceptors(new Serialize(GetProfileDto))
+
   @Get('/:id')
   async getProfile(@Param('id') id: string) {
-    return await this.profileService.getProfileByUserId(id);
+    const response = await this.profileService.getProfileByUserId(id)
+
+    const classInfo =  plainToInstance(GetProfileDto, response, {
+      
+    })
+
+    return instanceToPlain(classInfo)
   }
 
   @UseGuards(AuthGuard)

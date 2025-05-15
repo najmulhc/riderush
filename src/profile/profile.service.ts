@@ -47,7 +47,7 @@ export class ProfileService {
           id: userId,
         },
       },
-      relations: ['user'],
+      relations: ['user' , 'ridesAsRider', 'ridesAsPassenger'],
     });
 
     if (!profile) {

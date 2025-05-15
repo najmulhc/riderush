@@ -17,12 +17,12 @@ export class GetRideDto {
   cost: number;
 
   @Expose()
-
-  rider: RiderProfileDto;
+  @Type(() => PassengerProfileDto)
+  passenger: PassengerProfileDto;
 
   @Expose()
-    @Type(() => PassengerProfileDto)
-  passenger: PassengerProfileDto;
+  @Type(() => RiderProfileDto)
+  rider: RiderProfileDto;
 
   @Expose()
   status: 'Proposed' | 'Accepted' | 'Running' | 'Completed';

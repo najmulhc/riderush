@@ -22,9 +22,6 @@ export class Profile {
   @Column({ default: 5000 })
   balence: number;
 
-  @IsOptional()
-  @Column({ default: 0 })
-  rides: number;
 
   @Column({ default: 0 })
   riderReviewCount: number;
@@ -38,9 +35,10 @@ export class Profile {
   @Column({ default: 0 })
   passengerReviewAvg: number;
 
+
   @OneToMany(() => Ride, (ride) => ride.rider)
   ridesAsRider: Ride[];
-
+ 
   @OneToMany(() => Ride, (ride) => ride.passenger)
   ridesAsPassenger: Ride[];
 

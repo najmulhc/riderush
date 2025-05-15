@@ -27,6 +27,7 @@ export class Ride {
 
   @ManyToOne(() => Profile, (profile) => profile.ridesAsRider)
   rider: Profile;
+  
   @ManyToOne(() => Profile, (profile) => profile.ridesAsPassenger)
   passenger: Profile;
 
