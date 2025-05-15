@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
   Req,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -59,10 +59,11 @@ export class RideController {
     return result;
   }
 
-  @Post('/:id/review/rider')
-  async reviewRiderbyPassenger() {}
-  @Post('/:id/review/passenger')
-  async reviewPassengerByRider() {}
+  // the rider needs to find the last 10 rides to chose from
+  @Get()
+  async getRidesForRider() {
+    return await this.rideService.getRidesForRider()
+  }
 
   @Delete('/:id')
   async deleteRide(@Param('id') id: string, @Req() req) {

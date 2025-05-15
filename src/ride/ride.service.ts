@@ -5,12 +5,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Profile } from 'src/profile/entities/profile.entity';
 import { ProfileService } from 'src/profile/profile.service';
 import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateRideDto } from './dto/create-ride.dto';
 import { Ride } from './entities/ride.entity';
-import { Profile } from 'src/profile/entities/profile.entity';
 
 @Injectable()
 export class RideService {
@@ -130,16 +130,23 @@ export class RideService {
     });
 
     passenger.ridesAsPassenger.push(ride);
-    const savedPassenger = await this.profileRepo.save(passenger);
+    await this.profileRepo.save(passenger);
 
     rider.balence += cost;
 
-    const savedRider = await this.profileRepo.save(rider);
+    await this.profileRepo.save(rider);
 
     return {
-      savedRider,
-      savedPassenger,
       savedRide,
     };
+  }
+
+  async getRidesForRider() {
+    return await this.repo
+      .createQueryBuilder('ride')
+      .where('ride.status = :status', { status: 'Proposed' })
+      .orderBy('ride.createdAt', 'DESC')
+      .limit(16)
+      .getMany();
   }
 }
