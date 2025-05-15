@@ -1,85 +1,140 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Riderush API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Riderush** is a backend ride-sharing service built with NestJS and TypeORM. This project is a proof of concept designed to demonstrate strong command over entity relationships, advanced query building, and scalable API architecture.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🧠 Project Goal
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+To gain deep, hands-on experience with:
 
-## Project setup
+* Relational database design using TypeORM
+* Advanced usage of TypeORM QueryBuilder
+* Modular and maintainable NestJS architecture
+* Secure authentication using JWT
+* API documentation using Swagger
 
-```bash
-$ npm install
+---
+
+## 🧰 Tech Stack
+
+* **Backend Framework**: NestJS (TypeScript)
+* **Database**: PostgreSQL
+* **ORM**: TypeORM
+* **Authentication**: JWT (Access & Refresh Tokens)
+* **Validation**: class-validator, class-transformer
+* **API Docs**: Swagger
+* **Other**: CORS, dotenv
+
+---
+
+## 🧱 Key Features
+
+* Stateless JWT-based authentication
+* Role-based access control with NestJS guards
+* Profile creation and ride publishing
+* Ride booking and cancellation system
+* Swagger documentation for all endpoints
+* Planned: Rider review system, virtual wallet, mock payment flow
+
+---
+
+## 🗂️ Project Structure
+
+```
+src/
+├── user/           # User entity and basic logic
+├── profile/        # Profile creation and relationship with rides
+├── ride/           # Ride creation, booking, and cancellation
+└── review/         # (Planned) Ride feedback and ratings
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 🔄 Entity Relationships
 
-# watch mode
-$ npm run start:dev
+* `User` → `Profile` (One-to-One)
+* `Profile` → `Ride` (Many-to-One)
+* Additional relationships like `ManyToMany` for participants are under development.
 
-# production mode
-$ npm run start:prod
+---
+
+## 🚣️ API Documentation
+
+Swagger is enabled for fast inspection and testing of endpoints.
+
+**Access**:
+
+```
+http://localhost:3000/api
 ```
 
-## Run tests
+Use this to explore routes, request shapes, and response formats.
+
+---
+
+## 🚀 Running the App Locally
 
 ```bash
-# unit tests
-$ npm run test
+# Clone the repository
+git clone https://github.com/najmulhc/riderush.git
 
-# e2e tests
-$ npm run test:e2e
+# Navigate into the project
+cd riderush
 
-# test coverage
-$ npm run test:cov
+# Install dependencies
+npm install
+
+# Create your environment variables
+cp .env.example .env
+
+# Start the server
+npm run start:dev
 ```
 
-## Resources
+The API will be running at: `http://localhost:3000`
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## ⚙️ Environment Variables
 
-## Support
+All required variables are listed in `.env.example`.
+Replace placeholders with your own secure values.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Example:
 
-## Stay in touch
+```
+JWT_SECRET=your_jwt_secret
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASS=yourpassword
+DB_NAME=riderush
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## 📌 Planned Features
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+* Account-based virtual wallet system
+* Basic mock payment flow for demo purposes
+* Review and rating system for rides and users
+* Integration with external payment gateways
+
+---
+
+## 📚 Inspiration
+
+Concept inspired by industry leaders such as **Uber** and **Pathao**.
+Built as a learning showcase for backend architecture, not for production deployment.
+
+---
+
+## ✍️ Author
+
+**Najmul Huda Chowdhury**
+NestJS + TypeORM backend developer
+GitHub: [@najmulhc](https://github.com/najmulhc)
+LinkedIn: [najmulhc](https://www.linkedin.com/in/najmulhc)
+
+---

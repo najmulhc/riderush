@@ -36,7 +36,7 @@ userService : UserService
         );
       }
       request.user = await this.userService.findUserById(decoded.user_id);
-      console.log(request.user);
+ 
       return true;
     } catch (error) {
       throw new BadRequestException(error);

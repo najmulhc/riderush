@@ -46,8 +46,7 @@ export class UserService {
     const savedUser_id = savedUser.id;
     const savedUserProfile = await this.profileService.create({
       user_id: savedUser_id,
-    });
-    console.log(savedUserProfile);
+    }); 
     return await this.generateTokens({
       email: savedUser.email,
       user_id: savedUser.id,
